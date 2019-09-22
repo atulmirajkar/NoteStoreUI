@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../login.service';
+import { AuthService } from '../service/auth.service';
+import { pipe } from 'rxjs';
+import { ErrorHandler } from '../Utils/ErrorHandling';
+import { catchError } from 'rxjs/operators';
+import {Token} from '../model/Token';
 
 @Component({
   selector: 'app-login',
@@ -9,18 +13,22 @@ import { LoginService } from '../login.service';
 export class LoginComponent implements OnInit {
   public UserName: string;
   public Password: string;
-  private _loginService;
+  private _authService: AuthService;
 
-  constructor(loginService: LoginService) {
-    this._loginService = loginService;
+  constructor(authService: AuthService) {
+    this._authService = authService;
   }
 
   ngOnInit() {
   }
 
   onLogin(submittedForm) {
-    this._loginService.Login(submittedForm.value.emailInput, submittedForm.value.passwordInput)
-    .subscribe(body => console.log(body));
+    this._authService.Login(submittedForm.value.emailInput, submittedForm.value.passwordInput)
+    .pipe<Token>(catchError(ErrorHandler.handle))
+    .subscribe(tokenObj => {
+      this._authService.Token = tokenObj;
+      console.log(tokenObj);
+    });
 
   }
 }
