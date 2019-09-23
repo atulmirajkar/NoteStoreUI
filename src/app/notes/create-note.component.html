@@ -1,19 +1,19 @@
 <form #createForm="ngForm" (ngSubmit)="onSave(note);" >
   <div class="form-group">
     <label for="title">Title:</label>
-    <input type="text" class="form-control" id="title" name="title" required [(ngModel)]="note.Title" #titleControl="ngModel">
+    <input type="text" class="form-control" id="title" name="title" required [(ngModel)]="note.title" #titleControl="ngModel">
     <span class="text-muted" *ngIf="titleControl.touched && titleControl.invalid">Title is required.</span>
   </div>
 
   <div class="form-group">
     <label for="tag">Tag:</label>
-    <input type="text" class="form-control" id="tag" name="tag" required [(ngModel)]="note.Tag" #tagControl="ngModel">
+    <input type="text" class="form-control" id="tag" name="tag" required [(ngModel)]="note.tag" #tagControl="ngModel">
     <span class="text-muted" *ngIf="tagControl.touched && tagControl.invalid">Tag is required.</span>
   </div>
 
   <div class="form-group">
     <label for="post">Post:</label>
-    <textarea type="text" class="form-control" name="post" id="post" required [(ngModel)]="note.Post" rows="4" #postControl="ngModel"></textarea>
+    <textarea type="text" class="form-control" name="post" id="post" required [(ngModel)]="note.post" rows="4" #postControl="ngModel"></textarea>
     <span class="text-muted" *ngIf="postControl.touched && postControl.invalid">Post is required.</span>
   </div>
 

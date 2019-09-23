@@ -3,15 +3,15 @@
     <div id="noteList" class="card" *ngFor="let note of noteArr">
       <div class="card-body">
         <h5 class="card-title">
-          {{ note.Title }}
+          {{ note.title }}
         </h5>
         <div class="card-subtitle mb-2 text-muted">
-          {{note.Tag}}
+          {{note.tag}}
         </div>
         <p class="card-text">
-          {{ note.Post }}
+          {{ note.post }}
         </p>
-        <button type="button" class="btn btn-primary" (click)="editNote(note.Id)">Edit</button>
+        <button type="button" class="btn btn-primary" (click)="editNote(note.id)">Edit</button>
       </div>
     </div>
   </div>

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import { pipe } from 'rxjs';
 import { ErrorHandler } from '../Utils/ErrorHandling';
 import { catchError } from 'rxjs/operators';
-import {Token} from '../model/Token';
+import { Token } from '../model/Token';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,9 +14,11 @@ export class LoginComponent implements OnInit {
   public UserName: string;
   public Password: string;
   private _authService: AuthService;
+  private _router: Router;
 
-  constructor(authService: AuthService) {
+  constructor(authService: AuthService, router: Router) {
     this._authService = authService;
+    this._router = router;
   }
 
   ngOnInit() {
@@ -24,11 +26,17 @@ export class LoginComponent implements OnInit {
 
   onLogin(submittedForm) {
     this._authService.Login(submittedForm.value.emailInput, submittedForm.value.passwordInput)
-    .pipe<Token>(catchError(ErrorHandler.handle))
-    .subscribe(tokenObj => {
-      this._authService.Token = tokenObj;
-      console.log(tokenObj);
-    });
+      .pipe<Token>(catchError(ErrorHandler.handle))
+      .subscribe(tokenObj => {
+
+        this._authService.Token = tokenObj;
+        localStorage.setItem("token", tokenObj.token);
+        localStorage.setItem("refreshToken", tokenObj.refreshToken);
+
+        console.log(tokenObj);
+        this._router.navigate(['list']);
+
+      });
 
   }
 }

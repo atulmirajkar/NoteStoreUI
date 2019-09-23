@@ -1,44 +1,43 @@
 import { Injectable } from "@angular/core";
 import { Note } from "../model/NoteModel";
+import { Observable } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Token } from "../model/Token";
+import { catchError } from "rxjs/operators";
+import { ErrorHandler } from "../Utils/ErrorHandling";
 
 @Injectable()
 export class NoteDBService {
-  public noteArr: Note[] = [{
-    Id: "sfdgdg",
-    Tag: "first post",
-    Title: "dfs",
-    Post: "dsf"
-  }];
+  public noteArr: Note[];
+  private _httpClient: HttpClient;
+  private readonly _endPoint = 'https://localhost:5001/api/v1/notes';
+  private readonly _headers = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
 
-  constructor() {
-    this.noteArr.push({
-      Id: "sfdg",
-      Tag: "first post",
-      Title: "dfs",
-      Post: "dsf"
-    });
-
-    this.noteArr.push({
-      Id: "sfdg",
-      Tag: "first post",
-      Title: "second post",
-      Post: "dsf"
-    });
+  constructor(httpClient: HttpClient) {
+    this._httpClient = httpClient;
   }
 
-  public add(note: Note) {
-    this.noteArr.push(note);
+  public getAll(): Observable<Note[]> {
+    const headerWithToken = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    return this._httpClient.get<Note[]>(this._endPoint, { headers: headerWithToken });
+
   }
 
-  public get(id: string): Note {
-    return this.noteArr.find(note => note.Id === id);
+  public add(note: Note): Observable<Note> {
+    const headerWithToken = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    return this._httpClient.post<Note>(this._endPoint, note, { headers: headerWithToken });
+
   }
 
-  public update(id: string, updatedNote: Note): Note {
-    const noteToUpdate = this.noteArr.find(note => note.Id === id);
-    const index = this.noteArr.indexOf(noteToUpdate);
-    this.noteArr[index] = Object.assign({}, updatedNote);
-    return this.noteArr[index];
+  public get(id: string): Observable<Note> {
+    const headerWithToken = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    return this._httpClient.get<Note>(this._endPoint + '/' + id, { headers: headerWithToken });
+  }
 
+  public update(id: string, updatedNote: Note): Observable<Note> {
+    const headerWithToken = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    return this._httpClient.put<Note>(this._endPoint + '/' + id, updatedNote, { headers: headerWithToken });
   }
 }

@@ -1,7 +1,7 @@
 export interface Note {
-  Id: string;
-  Tag: string;
-  Title: string;
-  Post: string;
+  id: string;
+  tag: string;
+  title: string;
+  post: string;
   // timestamp
 }

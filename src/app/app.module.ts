@@ -10,15 +10,24 @@ import { AuthService } from './service/auth.service';
 import { ListNotesComponent } from './notes/list-notes.component';
 import { CreateNoteComponent } from './notes/create-note.component';
 import { CreateNoteCanDeactivate } from './notes/create-note-can-deactivate.service';
-import { CanDeactivate } from '@angular/router/src/utils/preactivation';
 import { NoteDBService } from './service/NoteDB.service';
+import { RegisterComponent } from './login/register.component';
+import { ListNotesResolver } from './service/list-notes-resolve.service';
+import { EditNoteResolver } from './service/edit-note-resolve.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'list', component: ListNotesComponent },
-  { path: 'edit/:id',
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'list'
+    , component: ListNotesComponent
+    , resolve: { noteList: ListNotesResolver }
+  },
+  {
+    path: 'edit/:id',
     component: CreateNoteComponent,
-    canDeactivate: [CreateNoteCanDeactivate]
+    canDeactivate: [CreateNoteCanDeactivate],
+    resolve: { note: EditNoteResolver }
   },
   { path: '', redirectTo: '/list', pathMatch: 'full' }
 ];
@@ -28,7 +37,8 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     ListNotesComponent,
-    CreateNoteComponent
+    CreateNoteComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +46,7 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, CreateNoteCanDeactivate, NoteDBService],
+  providers: [AuthService, CreateNoteCanDeactivate, NoteDBService, ListNotesResolver, EditNoteResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
