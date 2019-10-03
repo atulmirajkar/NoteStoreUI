@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -14,6 +14,10 @@ import { NoteDBService } from './service/NoteDB.service';
 import { RegisterComponent } from './login/register.component';
 import { ListNotesResolver } from './service/list-notes-resolve.service';
 import { EditNoteResolver } from './service/edit-note-resolve.service';
+import { ViewNoteComponent } from './notes/view-note.component';
+import { ViewNoteResolver } from './service/view-note-resolve.service';
+import { TokenInterceptor } from './service/token.Interceptor';
+import { CanActivateGuard } from './service/can-activate.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,12 +26,20 @@ const routes: Routes = [
     path: 'list'
     , component: ListNotesComponent
     , resolve: { noteList: ListNotesResolver }
+    , canActivate: [CanActivateGuard]
   },
   {
     path: 'edit/:id',
     component: CreateNoteComponent,
     canDeactivate: [CreateNoteCanDeactivate],
     resolve: { note: EditNoteResolver }
+    , canActivate: [CanActivateGuard]
+  },
+  {
+    path: 'view/:id',
+    component: ViewNoteComponent,
+    resolve: { viewNote: ViewNoteResolver }
+    , canActivate: [CanActivateGuard]
   },
   { path: '', redirectTo: '/list', pathMatch: 'full' }
 ];
@@ -38,7 +50,8 @@ const routes: Routes = [
     LoginComponent,
     ListNotesComponent,
     CreateNoteComponent,
-    RegisterComponent
+    RegisterComponent,
+    ViewNoteComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +59,19 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, CreateNoteCanDeactivate, NoteDBService, ListNotesResolver, EditNoteResolver],
+  providers: [AuthService
+    , CreateNoteCanDeactivate
+    , NoteDBService
+    , ListNotesResolver
+    , EditNoteResolver
+    , ViewNoteResolver
+    , {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+    , CanActivateGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

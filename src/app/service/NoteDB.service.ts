@@ -20,24 +20,24 @@ export class NoteDBService {
   }
 
   public getAll(): Observable<Note[]> {
-    const headerWithToken = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    return this._httpClient.get<Note[]>(this._endPoint, { headers: headerWithToken });
+    return this._httpClient.get<Note[]>(this._endPoint, { headers: this._headers });
 
   }
 
   public add(note: Note): Observable<Note> {
-    const headerWithToken = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    return this._httpClient.post<Note>(this._endPoint, note, { headers: headerWithToken });
+    return this._httpClient.post<Note>(this._endPoint, note, { headers: this._headers });
 
   }
 
   public get(id: string): Observable<Note> {
-    const headerWithToken = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    return this._httpClient.get<Note>(this._endPoint + '/' + id, { headers: headerWithToken });
+    return this._httpClient.get<Note>(this._endPoint + '/' + id, { headers: this._headers });
   }
 
   public update(id: string, updatedNote: Note): Observable<Note> {
-    const headerWithToken = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    return this._httpClient.put<Note>(this._endPoint + '/' + id, updatedNote, { headers: headerWithToken });
+    return this._httpClient.put<Note>(this._endPoint + '/' + id, updatedNote, { headers: this._headers });
+  }
+
+  public delete(id: string) {
+    return this._httpClient.delete(this._endPoint + '/' + id, {headers: this._headers});
   }
 }

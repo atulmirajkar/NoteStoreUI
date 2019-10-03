@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { ErrorHandler } from '../Utils/ErrorHandling';
 import { catchError } from 'rxjs/operators';
 import { Token } from '../model/Token';
 import { Router } from '@angular/router';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
       .pipe<Token>(catchError(ErrorHandler.handle))
       .subscribe(tokenObj => {
 
-        this._authService.Token = tokenObj;
+        this._authService.isLoggedIn = true;
         localStorage.setItem("token", tokenObj.token);
         localStorage.setItem("refreshToken", tokenObj.refreshToken);
 

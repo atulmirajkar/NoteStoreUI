@@ -7,7 +7,7 @@ import { Token } from '../model/Token';
 export class AuthService {
   private readonly _endPoint = 'https://localhost:5001/api/v1/identity';
   private _http: HttpClient;
-  public Token: Token;
+  public isLoggedIn: boolean;
   private _headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
@@ -16,6 +16,16 @@ export class AuthService {
     this._http = http;
   }
 
+  Logout() {
+    this.isLoggedIn = false;
+    const jwtToken = this.getJWTToken();
+
+    if (jwtToken === null) {
+      return;
+    }
+
+    return this._http.post<string>(this._endPoint + '/logout', { 'token': jwtToken.token }, { headers: this._headers });
+  }
 
   Login(userName: string, password: string): Observable<Token> {
 
@@ -29,6 +39,12 @@ export class AuthService {
 
   }
 
+  Refresh(): Observable<Token> {
+    const jwtToken = this.getJWTToken();
+    return this._http.post<Token>(this._endPoint + '/refresh', jwtToken, { headers: this._headers });
+  }
+
+
   Register(userName: string, password: string): Observable<Token> {
     const registerRequest: RegisterRequest = {
       Email: userName,
@@ -40,6 +56,25 @@ export class AuthService {
 
   }
 
+  getJWTToken(): Token {
+    const token = localStorage.getItem('token');
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (!token || !refreshToken) {
+      return null;
+    }
+    return {
+      token: token,
+      refreshToken: refreshToken
+    };
+  }
+
+  setJWTToken(jwtToken: Token) {
+    localStorage.removeItem('token');
+    localStorage.setItem('token', jwtToken.token);
+
+    localStorage.removeItem('refreshToken');
+    localStorage.setItem('refreshToken', jwtToken.refreshToken);
+  }
 }
 
 

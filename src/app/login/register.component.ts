@@ -26,8 +26,9 @@ export class RegisterComponent implements OnInit {
     this._authService.Register(submittedForm.value.emailInput, submittedForm.value.passwordInput)
     .pipe<Token>(catchError(ErrorHandler.handle))
     .subscribe(tokenObj => {
-      this._authService.Token = tokenObj;
-      console.log(tokenObj);
+      this._authService.isLoggedIn = true;
+      localStorage.setItem("token", tokenObj.token);
+      localStorage.setItem("refreshToken", tokenObj.refreshToken);
     });
 
   }

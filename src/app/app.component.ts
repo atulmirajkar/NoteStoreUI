@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from './service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,26 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'NoteStoreUI';
+  public isLoggedIn: boolean;
+  authService: AuthService;
+  _router: Router;
+
+  constructor(authService: AuthService, router: Router) {
+    this.authService = authService;
+    this._router = router;
+
+  }
+
+  logout() {
+    this.authService.Logout()
+      .subscribe(() => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
+        this.authService.isLoggedIn = false;
+
+      });
+    this._router.navigate(['login']);
+
+  }
+
 }
