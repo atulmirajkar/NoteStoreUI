@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Note } from '../model/NoteModel';
-import { NoteDBService } from '../service/NoteDB.service';
+import { NoteDBService } from '../service/notedb-service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Note } from '../model/NoteModel';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NoteDBService } from '../service/NoteDB.service';
+import { NoteDBService } from '../service/notedb-service';
 import { catchError } from 'rxjs/operators';
 import { ErrorHandler } from '../Utils/ErrorHandling';
 

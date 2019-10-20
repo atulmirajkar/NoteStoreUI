@@ -11,11 +11,12 @@ export class AppComponent {
   public isLoggedIn: boolean;
   authService: AuthService;
   _router: Router;
+  public isNavbarCollapsed: boolean;
 
   constructor(authService: AuthService, router: Router) {
     this.authService = authService;
     this._router = router;
-
+    this.isNavbarCollapsed = false;
   }
 
   logout() {
@@ -28,6 +29,10 @@ export class AppComponent {
       });
     this._router.navigate(['login']);
 
+  }
+
+  toggleNavbarCollapse() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
   }
 
 }

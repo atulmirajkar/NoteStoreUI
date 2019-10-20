@@ -14,6 +14,11 @@ export class AuthService {
 
   constructor(http: HttpClient) {
     this._http = http;
+
+    //check if tokens present
+    if (this.getJWTToken() != null) {
+      this.isLoggedIn = true;
+    }
   }
 
   Logout() {

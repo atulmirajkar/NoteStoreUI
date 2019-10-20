@@ -9,8 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './service/auth.service';
 import { ListNotesComponent } from './notes/list-notes.component';
 import { CreateNoteComponent } from './notes/create-note.component';
-import { CreateNoteCanDeactivate } from './notes/create-note-can-deactivate.service';
-import { NoteDBService } from './service/NoteDB.service';
+import { CreateNoteCanDeactivate } from './service/create-note-can-deactivate.service';
+import { NoteDBService } from './service/notedb-service';
 import { RegisterComponent } from './login/register.component';
 import { ListNotesResolver } from './service/list-notes-resolve.service';
 import { EditNoteResolver } from './service/edit-note-resolve.service';
@@ -18,6 +18,7 @@ import { ViewNoteComponent } from './notes/view-note.component';
 import { ViewNoteResolver } from './service/view-note-resolve.service';
 import { TokenInterceptor } from './service/token.Interceptor';
 import { CanActivateGuard } from './service/can-activate.service';
+import { PageNotFoundComponent } from './notes/page-not-found.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -41,7 +42,11 @@ const routes: Routes = [
     resolve: { viewNote: ViewNoteResolver }
     , canActivate: [CanActivateGuard]
   },
-  { path: '', redirectTo: '/list', pathMatch: 'full' }
+  { path: '', redirectTo: '/list', pathMatch: 'full' },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+  }
 ];
 
 @NgModule({
@@ -51,7 +56,8 @@ const routes: Routes = [
     ListNotesComponent,
     CreateNoteComponent,
     RegisterComponent,
-    ViewNoteComponent
+    ViewNoteComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

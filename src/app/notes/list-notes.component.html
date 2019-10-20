@@ -1,18 +1,25 @@
-<div class="row">
-  <div class="col-lg-10 col-md-10 col-xs-12">
+<div class="row justify-content-center">
+  <div class="col-12">
     <div id="noteList" class="card" *ngFor="let note of noteArr">
       <div class="card-body">
         <h5 class="card-title">
           {{ note.title }}
         </h5>
-        <div class="card-subtitle mb-2 text-muted">
-          {{note.tag}}
+        <div class="card-subtitle">
+          {{ note.tag }}
         </div>
         <p class="card-text">
           {{ note.post }}
         </p>
-        <button type="button" class="btn btn-primary" (click)="viewNote(note.id)">View</button>
-        <i class="fa fa-eye"></i>
+        <div class="card-buttons">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="viewNote(note.id)"
+          >
+            View
+          </button>
+        </div>
       </div>
     </div>
   </div>

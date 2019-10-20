@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Note } from '../model/NoteModel';
 import { NgForm } from '@angular/forms';
-import { NoteDBService } from '../service/NoteDB.service';
+import { NoteDBService } from '../service/notedb-service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 import { ErrorHandler } from '../Utils/ErrorHandling';

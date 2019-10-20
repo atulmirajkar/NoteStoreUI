@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Resolve, ActivatedRouteSnapshot } from "@angular/router";
 import { Note } from "../model/NoteModel";
 import { Observable } from "rxjs";
-import { NoteDBService } from "./NoteDB.service";
+import { NoteDBService } from "./notedb-service";
 
 @Injectable()
 export class ViewNoteResolver implements Resolve<Note>{
