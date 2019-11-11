@@ -1,6 +1,7 @@
-.card-buttons {
-  button {
-    margin:auto 5px;
-    width: 80px;
+@import "card";
+
+.card-text {
+  .note-post {
+    max-height: 90vh;
   }
 }

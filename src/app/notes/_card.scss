@@ -1,0 +1,23 @@
+.card-text {
+  max-height: 50px;
+  overflow: hidden;
+}
+
+.card {
+  margin: 8px auto;
+  min-width: 300px;
+}
+
+.card-subtitle {
+  color: rgb(108, 117, 125);
+  margin-bottom: 12px;
+  font-style: italic;
+  font-size: 15px;
+}
+
+.card-buttons {
+  button {
+    margin:auto 5px auto 0px;
+    width: 80px;
+  }
+}

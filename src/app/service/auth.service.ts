@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Token } from '../model/Token';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
-  private readonly _endPoint = 'https://localhost:5001/api/v1/identity';
+  private readonly _endPoint = environment.baseURL + 'api/v1/identity';
   private _http: HttpClient;
   public isLoggedIn: boolean;
   private _headers = new HttpHeaders({

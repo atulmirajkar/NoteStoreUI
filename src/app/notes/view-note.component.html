@@ -1,27 +1,29 @@
-<div class="card-body">
-  <h5 class="card-title">
-    {{ viewNote.title }}
-  </h5>
-  <div class="card-subtitle mb-2 text-muted">
-    {{ viewNote.tag }}
-  </div>
-  <p class="card-text">
-    {{ viewNote.post }}
-  </p>
-  <div class="card-buttons">
-    <button
-      type="button"
-      class="btn btn-primary"
-      (click)="editNote(viewNote.id)"
-    >
-      Edit
-    </button>
-    <button
-      type="button"
-      class="btn btn-primary"
-      (click)="deleteNote(viewNote.id)"
-    >
-      Delete
-    </button>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">
+      {{ viewNote.title }}
+    </h5>
+    <div class="card-subtitle mb-2 text-muted">
+      {{ viewNote.tag }}
+    </div>
+    <p class="card-text note-post">
+      {{ viewNote.post }}
+    </p>
+    <div class="card-buttons">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="editNote(viewNote.id)"
+      >
+        Edit
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="deleteNote(viewNote.id)"
+      >
+        Delete
+      </button>
+    </div>
   </div>
 </div>

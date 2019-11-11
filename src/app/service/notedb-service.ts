@@ -5,12 +5,13 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Token } from "../model/Token";
 import { catchError } from "rxjs/operators";
 import { ErrorHandler } from "../Utils/ErrorHandling";
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class NoteDBService {
   public noteArr: Note[];
   private _httpClient: HttpClient;
-  private readonly _endPoint = 'https://localhost:5001/api/v1/notes';
+  private readonly _endPoint =  environment.baseURL + 'api/v1/notes';
   private readonly _headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
