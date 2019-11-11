@@ -4,7 +4,7 @@ COPY package*.json ./
 RUN npm install
 RUN npm install node-sass@latest
 COPY . .
-RUN npm run build --prod
+RUN npm run build
 
 FROM nginx:alpine
 EXPOSE 80
