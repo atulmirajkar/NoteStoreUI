@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseURL: 'http://sonalimokashi.com/'
+  baseURL: 'http://notesapi.sonalimokashi.com/'
 };
 
 /*
