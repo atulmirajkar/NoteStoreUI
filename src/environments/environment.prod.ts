@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseURL: 'http://notesapi.sonalimokashi.com/'
+  baseURL: 'http://notesapi.atulmirajkar.com/'
 };
