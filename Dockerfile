@@ -14,3 +14,7 @@ COPY --from=build  /usr/src/app/dist/* /usr/share/nginx/html
 #docker build -t atulmirajkar/noteuiangular2:v1 .
 #docker push atulmirajkar/noteuiangular2:v1
 #docker run -p 80:80 atulmirajkar/noteuiangular2:v1
+
+
+#docker build -t atulmirajkar/noteuiangular2:local .
+#docker push atulmirajkar/noteuiangular2:local
